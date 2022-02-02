@@ -24,6 +24,18 @@ struct APIRequest {
         
     }
     
+    func getForeCastWeather(lat: Double, long: Double, completionHandler: @escaping ( _ data: Data?, _ response: URLResponse?, _ error: Error?) -> Void) {
+        
+        
+        let url = URL(string: "https://api.openweathermap.org/data/2.5/forecast?lat=\(lat)&lon=\(long)&appid=\(apiKey)")
+        
+        let session = URLSession.shared
+        
+        let task = session.dataTask(with: url!, completionHandler: completionHandler)
+        
+        task.resume()
+    }
+    
     
     
 }

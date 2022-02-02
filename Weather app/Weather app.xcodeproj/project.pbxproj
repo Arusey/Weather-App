@@ -19,6 +19,7 @@
 		4E7308F827AA83EC009C4943 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7308F727AA83EC009C4943 /* WeatherModel.swift */; };
 		4E7308FA27AA85CC009C4943 /* APIRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7308F927AA85CC009C4943 /* APIRequests.swift */; };
 		4E7308FC27AA9E45009C4943 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7308FB27AA9E45009C4943 /* Location.swift */; };
+		4E7308FE27AAB70E009C4943 /* ForecastWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7308FD27AAB70E009C4943 /* ForecastWeatherCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		4E7308F727AA83EC009C4943 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
 		4E7308F927AA85CC009C4943 /* APIRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequests.swift; sourceTree = "<group>"; };
 		4E7308FB27AA9E45009C4943 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		4E7308FD27AAB70E009C4943 /* ForecastWeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastWeatherCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				4E7308CB27AA6E04009C4943 /* DashboardWeatherVC.swift */,
 				4E7308F727AA83EC009C4943 /* WeatherModel.swift */,
 				4E7308FB27AA9E45009C4943 /* Location.swift */,
+				4E7308FD27AAB70E009C4943 /* ForecastWeatherCell.swift */,
 				4E7308F927AA85CC009C4943 /* APIRequests.swift */,
 				4E7308CD27AA6E04009C4943 /* Main.storyboard */,
 				4E7308D027AA6E06009C4943 /* Assets.xcassets */,
@@ -267,6 +270,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E7308FE27AAB70E009C4943 /* ForecastWeatherCell.swift in Sources */,
 				4E7308CC27AA6E04009C4943 /* DashboardWeatherVC.swift in Sources */,
 				4E7308C827AA6E04009C4943 /* AppDelegate.swift in Sources */,
 				4E7308FA27AA85CC009C4943 /* APIRequests.swift in Sources */,

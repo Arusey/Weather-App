@@ -127,7 +127,7 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="0.3294117647" green="0.4431372549" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellID" rowHeight="96" id="7Yr-vP-idX">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellID" rowHeight="96" id="7Yr-vP-idX" customClass="ForecastWeatherCell" customModule="Weather_app" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="44.5" width="414" height="96"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7Yr-vP-idX" id="MRs-Px-4ef">
@@ -166,6 +166,11 @@
                                                                 <constraint firstItem="NVy-lg-Yja" firstAttribute="leading" secondItem="MRs-Px-4ef" secondAttribute="leadingMargin" constant="20" id="eb4-iO-zRH"/>
                                                             </constraints>
                                                         </tableViewCellContentView>
+                                                        <connections>
+                                                            <outlet property="dayOfTheWeek" destination="xH6-j3-I4T" id="o67-XJ-f1e"/>
+                                                            <outlet property="temperature" destination="dFD-RU-GXa" id="jNB-NL-ub0"/>
+                                                            <outlet property="weatherIcon" destination="ySg-jC-sJA" id="ObU-RA-grc"/>
+                                                        </connections>
                                                     </tableViewCell>
                                                 </prototypes>
                                             </tableView>
@@ -199,6 +204,7 @@
                     </view>
                     <connections>
                         <outlet property="currentTemperature" destination="Hff-0m-NJn" id="Cva-DX-50K"/>
+                        <outlet property="mainTemp" destination="Ybg-xR-VVr" id="BiD-wf-5cW"/>
                         <outlet property="maxTemperature" destination="YOo-jv-d32" id="wUO-6U-s2w"/>
                         <outlet property="minTemperature" destination="L6c-8y-b3P" id="696-D9-ZSr"/>
                         <outlet property="tableView" destination="Snl-k1-Fhk" id="FbI-4u-YjH"/>
