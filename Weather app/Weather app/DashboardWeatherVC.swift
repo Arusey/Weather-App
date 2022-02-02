@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MapKit
 
 class DashboardWeatherVC: UIViewController {
     
@@ -18,16 +19,39 @@ class DashboardWeatherVC: UIViewController {
     
     var requests = APIRequest()
     var currentWeather: CurrentWeather?
+    let locationManager = CLLocationManager()
+    
+    var latitude: Double?
+    var longitude: Double?
+    
+
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
-        // Do any additional setup after loading the view.
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        getCurrentWeather(lat: 35.0, long: 139.0)
+        getUserLocation()
+
+
+    }
+    
+    func getUserLocation() {
+        
+        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        } else{
+            print("Location service disabled");
+        }
+        
     }
     
     
@@ -42,6 +66,9 @@ class DashboardWeatherVC: UIViewController {
                 
                 DispatchQueue.main.async {
                     currentTemperature.text = "\(currentWeather!.main.temp)"
+                    minTemperature.text = "\(currentWeather!.main.tempMin)"
+                    maxTemperature.text = "\(currentWeather!.main.tempMax)"
+
                 }
                 
                 
@@ -62,6 +89,23 @@ extension DashboardWeatherVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
+    }
+}
+
+extension DashboardWeatherVC: CLLocationManagerDelegate {
+    
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locationValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        print("locations = \(locationValue.latitude) \(locationValue.longitude)")
+        
+        self.latitude = locationValue.latitude
+        self.longitude = locationValue.longitude
+        
+        getCurrentWeather(lat: locationValue.latitude, long: locationValue.longitude)
+        
+        
+        
     }
 }
 
