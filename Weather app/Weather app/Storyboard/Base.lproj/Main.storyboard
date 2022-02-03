@@ -22,9 +22,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tAg-bo-tu2" userLabel="TopView">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="327"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sea_cloudy" translatesAutoresizingMaskIntoConstraints="NO" id="Otc-Tj-eyl">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="320"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sea_cloudy" translatesAutoresizingMaskIntoConstraints="NO" id="Otc-Tj-eyl">
+                                                <rect key="frame" x="27" y="3.5" width="360" height="320"/>
                                             </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="9ro-Ba-8vH">
                                                 <rect key="frame" x="154" y="107" width="106.5" height="113.5"/>
@@ -46,8 +45,10 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.3294117647" green="0.4431372549" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
+                                            <constraint firstItem="Otc-Tj-eyl" firstAttribute="centerY" secondItem="tAg-bo-tu2" secondAttribute="centerY" id="4P5-kI-iOT"/>
                                             <constraint firstItem="9ro-Ba-8vH" firstAttribute="centerX" secondItem="tAg-bo-tu2" secondAttribute="centerX" id="7UL-Ty-WMr"/>
                                             <constraint firstItem="9ro-Ba-8vH" firstAttribute="centerY" secondItem="tAg-bo-tu2" secondAttribute="centerY" id="hLY-Nf-Tk6"/>
+                                            <constraint firstItem="Otc-Tj-eyl" firstAttribute="centerX" secondItem="tAg-bo-tu2" secondAttribute="centerX" id="plh-lj-rBD"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dGC-GU-kao" userLabel="MidView">
@@ -194,7 +195,7 @@
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.3294117647" green="0.4431372549" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Ccj-uf-xar" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="HAw-z8-Vjf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Ccj-uf-xar" secondAttribute="bottom" id="PTd-wV-btW"/>

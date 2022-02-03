@@ -18,8 +18,9 @@
 		4E7308EB27AA6E06009C4943 /* Weather_appUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7308EA27AA6E06009C4943 /* Weather_appUITestsLaunchTests.swift */; };
 		4E7308F827AA83EC009C4943 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7308F727AA83EC009C4943 /* WeatherModel.swift */; };
 		4E7308FA27AA85CC009C4943 /* APIRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7308F927AA85CC009C4943 /* APIRequests.swift */; };
-		4E7308FC27AA9E45009C4943 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7308FB27AA9E45009C4943 /* Location.swift */; };
 		4E7308FE27AAB70E009C4943 /* ForecastWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7308FD27AAB70E009C4943 /* ForecastWeatherCell.swift */; };
+		4E73090027ABB9A6009C4943 /* WaitingOverlays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7308FF27ABB9A6009C4943 /* WaitingOverlays.swift */; };
+		4E73090227ABBAC9009C4943 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E73090127ABBAC9009C4943 /* UIView+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,8 +56,9 @@
 		4E7308EA27AA6E06009C4943 /* Weather_appUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather_appUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4E7308F727AA83EC009C4943 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
 		4E7308F927AA85CC009C4943 /* APIRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequests.swift; sourceTree = "<group>"; };
-		4E7308FB27AA9E45009C4943 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		4E7308FD27AAB70E009C4943 /* ForecastWeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastWeatherCell.swift; sourceTree = "<group>"; };
+		4E7308FF27ABB9A6009C4943 /* WaitingOverlays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingOverlays.swift; sourceTree = "<group>"; };
+		4E73090127ABBAC9009C4943 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,16 +109,13 @@
 		4E7308C627AA6E04009C4943 /* Weather app */ = {
 			isa = PBXGroup;
 			children = (
-				4E7308C727AA6E04009C4943 /* AppDelegate.swift */,
-				4E7308C927AA6E04009C4943 /* SceneDelegate.swift */,
-				4E7308CB27AA6E04009C4943 /* DashboardWeatherVC.swift */,
-				4E7308F727AA83EC009C4943 /* WeatherModel.swift */,
-				4E7308FB27AA9E45009C4943 /* Location.swift */,
-				4E7308FD27AAB70E009C4943 /* ForecastWeatherCell.swift */,
-				4E7308F927AA85CC009C4943 /* APIRequests.swift */,
-				4E7308CD27AA6E04009C4943 /* Main.storyboard */,
-				4E7308D027AA6E06009C4943 /* Assets.xcassets */,
-				4E7308D227AA6E06009C4943 /* LaunchScreen.storyboard */,
+				4E7B9AB127ABEA7A0096A53D /* Resources */,
+				4E7B9AB027ABEA6A0096A53D /* Storyboard */,
+				4E7B9AAF27ABEA570096A53D /* Initial */,
+				4E7B9AAE27ABEA490096A53D /* API */,
+				4E7B9AAC27ABEA220096A53D /* Views */,
+				4E7B9AAB27ABEA090096A53D /* Utils */,
+				4E7B9AAA27ABE9F80096A53D /* Model */,
 				4E7308D527AA6E06009C4943 /* Info.plist */,
 			);
 			path = "Weather app";
@@ -137,6 +136,74 @@
 				4E7308EA27AA6E06009C4943 /* Weather_appUITestsLaunchTests.swift */,
 			);
 			path = "Weather appUITests";
+			sourceTree = "<group>";
+		};
+		4E7B9AAA27ABE9F80096A53D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4E7308F727AA83EC009C4943 /* WeatherModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4E7B9AAB27ABEA090096A53D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				4E7308FF27ABB9A6009C4943 /* WaitingOverlays.swift */,
+				4E73090127ABBAC9009C4943 /* UIView+.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		4E7B9AAC27ABEA220096A53D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4E7B9AAD27ABEA2E0096A53D /* Cells */,
+				4E7308CB27AA6E04009C4943 /* DashboardWeatherVC.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4E7B9AAD27ABEA2E0096A53D /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				4E7308FD27AAB70E009C4943 /* ForecastWeatherCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		4E7B9AAE27ABEA490096A53D /* API */ = {
+			isa = PBXGroup;
+			children = (
+				4E7308F927AA85CC009C4943 /* APIRequests.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		4E7B9AAF27ABEA570096A53D /* Initial */ = {
+			isa = PBXGroup;
+			children = (
+				4E7308C727AA6E04009C4943 /* AppDelegate.swift */,
+				4E7308C927AA6E04009C4943 /* SceneDelegate.swift */,
+			);
+			path = Initial;
+			sourceTree = "<group>";
+		};
+		4E7B9AB027ABEA6A0096A53D /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				4E7308D227AA6E06009C4943 /* LaunchScreen.storyboard */,
+				4E7308CD27AA6E04009C4943 /* Main.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		4E7B9AB127ABEA7A0096A53D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4E7308D027AA6E06009C4943 /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,12 +337,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E73090027ABB9A6009C4943 /* WaitingOverlays.swift in Sources */,
 				4E7308FE27AAB70E009C4943 /* ForecastWeatherCell.swift in Sources */,
 				4E7308CC27AA6E04009C4943 /* DashboardWeatherVC.swift in Sources */,
 				4E7308C827AA6E04009C4943 /* AppDelegate.swift in Sources */,
 				4E7308FA27AA85CC009C4943 /* APIRequests.swift in Sources */,
 				4E7308F827AA83EC009C4943 /* WeatherModel.swift in Sources */,
-				4E7308FC27AA9E45009C4943 /* Location.swift in Sources */,
+				4E73090227ABBAC9009C4943 /* UIView+.swift in Sources */,
 				4E7308CA27AA6E04009C4943 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

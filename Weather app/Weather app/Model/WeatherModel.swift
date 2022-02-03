@@ -7,6 +7,11 @@
 
 import Foundation
 
+enum WeatherStatus {
+    case cloudy
+    case sunny
+    case rainy
+}
 
 struct CurrentWeather: Codable {
     let coord: Coord?
@@ -167,6 +172,7 @@ enum Icon: String, Codable {
 enum MainEnum: String, Codable {
     case clouds = "Clouds"
     case rain = "Rain"
+    case sun = "Sun"
 }
 
 enum Description: String, Codable {
