@@ -41,21 +41,23 @@ class DashboardWeatherVC: UIViewController {
     }
     
     
-    func getWeatherStatus() {
+    func getWeatherStatus(weatherStatus: Weather) {
         
-        guard let currentStatus = currentWeather?.weather?[0].main else {
-            return
+        switch weatherStatus.weatherStatus {
+        case .clouds:
+            self.view.backgroundColor = UIColor.cloudyColor
+            self.tableView.backgroundColor = UIColor.cloudyColor
+            self.weatherImage.image = UIImage(named: "sea_cloudy")
+        case .rain:
+            self.view.backgroundColor = UIColor.rainyColor
+            self.tableView.backgroundColor = UIColor.rainyColor
+            self.weatherImage.image = UIImage(named: "sea_rainy")
+        case .sun:
+            self.view.backgroundColor = UIColor.sunnyColor
+            self.tableView.backgroundColor = UIColor.sunnyColor
+            self.weatherImage.image = UIImage(named: "sea_sunnypng")
         }
-
-        if currentStatus == "Clouds" {
-            weatherImage.image = UIImage(named: "sea_cloudy")
-            
-            
-        } else if currentStatus == "Clear" {
-            weatherImage.image = UIImage(named: "sea_sunnypng")
-        } else {
-            weatherImage.image = UIImage(named: "sea_rainy")
-        }
+        
     }
     
     func getUserLocation() {
@@ -87,6 +89,8 @@ class DashboardWeatherVC: UIViewController {
                 
                 DispatchQueue.main.async {
                     
+                    guard let weather = currentWeather?.weather?.first else { return }
+                    
                     guard let currentTemp = currentWeather?.main?.temp else { return }
                     guard let minTemp = currentWeather?.main?.tempMin else { return }
                     guard let maxTemp = currentWeather?.main?.tempMax else { return }
@@ -94,7 +98,7 @@ class DashboardWeatherVC: UIViewController {
                     minTemperature.text = String(format: "%.0f", minTemp - 273.15) + "°"
                     maxTemperature.text = String(format: "%.0f", maxTemp - 273.15) + "°"
                     mainTemp.text = String(format: "%.0f", currentTemp - 273.15) + "°"
-                    getWeatherStatus()
+                    getWeatherStatus(weatherStatus: weather)
 //                    WaitingOverlays.removeAllBlockingOverlays()
 
                 }
@@ -146,7 +150,18 @@ extension DashboardWeatherVC: UITableViewDataSource {
         guard let weatherStat = forecastWeather?.list else { return cell }
         guard let weatherDescription = forecastWeather?.list?[indexPath.row].weather[0].weatherDescription else { return cell }
         
-        getWeatherStatus()
+        guard let weather = forecastWeather?.list?[indexPath.row].weather.first else { return cell }
+        
+        switch weather.weatherStatus {
+            case .sun:
+                cell.weatherIcon.image = UIImage(named: "clear")
+            case .clouds:
+                cell.weatherIcon.image = UIImage(named: "partlysunny")
+            case .rain:
+                cell.weatherIcon.image = UIImage(named: "rain")
+        }
+        
+        getWeatherStatus(weatherStatus: weather)
         cell.dayOfTheWeek.text = "Monday"
 
         cell.setupCell(weatherStat[indexPath.row], indexPathRow: indexPath.row)
@@ -166,6 +181,7 @@ extension DashboardWeatherVC: CLLocationManagerDelegate {
         print("locations = \(locationValue.latitude) \(locationValue.longitude)")
         getCurrentWeather(lat: locationValue.latitude, long: locationValue.longitude)
         getForecasteWeather(lat: locationValue.latitude, long: locationValue.longitude)
+        self.title = currentWeather?.name
     }
 }
 
