@@ -100,7 +100,12 @@ class DashboardWeatherVC: UIViewController {
                 }
                 
             } catch {
-                print("Failed to decode data \(error.localizedDescription)")
+                print("Failed to decode data \(String(describing: error))")
+
+                DispatchQueue.main.async {
+                    WaitingOverlays.removeAllBlockingOverlays()
+                }
+                
             }
         }
     }
@@ -121,7 +126,11 @@ class DashboardWeatherVC: UIViewController {
                 
                 
             } catch {
-                print("Failed to decode data \(error.localizedDescription)")
+                print("Failed to decode data \(String(describing: error))")
+
+                DispatchQueue.main.async {
+                    WaitingOverlays.removeAllBlockingOverlays()
+                }
             }
         }
     }
@@ -134,27 +143,19 @@ extension DashboardWeatherVC: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath) as! ForecastWeatherCell
         guard let temp = forecastWeather?.list?[indexPath.row].main.temp else { return cell }
-        guard let weatherStat = forecastWeather?.list?[indexPath.row].weather[0].main else { return cell }
+        guard let weatherStat = forecastWeather?.list else { return cell }
         guard let weatherDescription = forecastWeather?.list?[indexPath.row].weather[0].weatherDescription else { return cell }
+        
+        getWeatherStatus()
         cell.dayOfTheWeek.text = "Monday"
-        cell.weatherIcon.image = UIImage(named: "partlysunny")
-        cell.temperature.text = String(format: "%.0f", temp - 273.15) + "°"
 
-        switch weatherStat {
-        case .clouds:
-            cell.weatherIcon.image = UIImage(named: "partlysunny")
-        case .rain:
-            cell.weatherIcon.image = UIImage(named: "rain")
-        case .sun:
-            cell.weatherIcon.image = UIImage(named: "clear")
-        default:
-            cell.weatherIcon.image = UIImage(named: "clear")
-        }
+        cell.setupCell(weatherStat[indexPath.row], indexPathRow: indexPath.row)
+
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return forecastWeather?.list?.count ?? 0
+        return 5
     }
 }
 

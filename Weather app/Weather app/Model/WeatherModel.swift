@@ -69,6 +69,22 @@ struct Weather: Codable {
         case weatherDescription = "description"
         case icon
     }
+    
+    enum CurrentWeatherStatus: String, Codable {
+        case clouds = "Clouds"
+        case rain = "Rain"
+        case sun = "Sun"
+    }
+    
+    var weatherStatus: CurrentWeatherStatus {
+        if weatherDescription.contains("clear") {
+            return.sun
+        } else if weatherDescription.contains("cloud") {
+            return .clouds
+        } else if weatherDescription.contains("rain") {
+            return .rain
+        } else { return .clouds }
+    }
 }
 
 
@@ -77,6 +93,17 @@ struct ForecastWeather: Codable {
     let message, cnt: Int?
     let list: [List]?
     let city: City?
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        cod = try container.decode(String.self, forKey: .cod)
+        message = try container.decode(Int.self, forKey: .message)
+        cnt = try container.decode(Int.self, forKey: .cnt)
+        list = try container.decode([List].self, forKey: .list)
+        city = try container.decode(City.self, forKey: .city)
+    }
+    
+    
 }
 
 // MARK: - City
@@ -93,7 +120,7 @@ struct City: Codable {
 struct List: Codable {
     let dt: Int
     let main: MainClass
-    let weather: [ForeWeather]
+    let weather: [Weather]
     let clouds: Clouds
     let wind: Wind
     let visibility: Int
@@ -147,33 +174,20 @@ enum Pod: String, Codable {
     case n = "n"
 }
 
+
+
+
 // MARK: - Weather
-struct ForeWeather: Codable {
-    let id: Int
-    let main: MainEnum
-    let weatherDescription: Description
-    let icon: Icon
-
-    enum CodingKeys: String, CodingKey {
-        case id, main
-        case weatherDescription = "description"
-        case icon
-    }
-}
-
 enum Icon: String, Codable {
     case the02D = "02d"
+    case the03D = "03d"
     case the04D = "04d"
     case the04N = "04n"
     case the10D = "10d"
     case the10N = "10n"
 }
 
-enum MainEnum: String, Codable {
-    case clouds = "Clouds"
-    case rain = "Rain"
-    case sun = "Sun"
-}
+
 
 enum Description: String, Codable {
     case brokenClouds = "broken clouds"
@@ -181,6 +195,8 @@ enum Description: String, Codable {
     case lightRain = "light rain"
     case moderateRain = "moderate rain"
     case overcastClouds = "overcast clouds"
+    case scatteredClouds = "scattered clouds"
+
 }
 
 // MARK: - Wind
@@ -189,3 +205,6 @@ struct Wind: Codable {
     let deg: Int
     let gust: Double?
 }
+
+
+

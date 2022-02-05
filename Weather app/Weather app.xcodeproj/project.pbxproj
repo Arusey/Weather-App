@@ -21,6 +21,8 @@
 		4E7308FE27AAB70E009C4943 /* ForecastWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7308FD27AAB70E009C4943 /* ForecastWeatherCell.swift */; };
 		4E73090027ABB9A6009C4943 /* WaitingOverlays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7308FF27ABB9A6009C4943 /* WaitingOverlays.swift */; };
 		4E73090227ABBAC9009C4943 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E73090127ABBAC9009C4943 /* UIView+.swift */; };
+		4E7B9AB327ABFA280096A53D /* UIcolor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7B9AB227ABFA270096A53D /* UIcolor+.swift */; };
+		4E7B9AB527AD53CF0096A53D /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7B9AB427AD53CF0096A53D /* Date+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		4E7308FD27AAB70E009C4943 /* ForecastWeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastWeatherCell.swift; sourceTree = "<group>"; };
 		4E7308FF27ABB9A6009C4943 /* WaitingOverlays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingOverlays.swift; sourceTree = "<group>"; };
 		4E73090127ABBAC9009C4943 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
+		4E7B9AB227ABFA270096A53D /* UIcolor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIcolor+.swift"; sourceTree = "<group>"; };
+		4E7B9AB427AD53CF0096A53D /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +155,8 @@
 			children = (
 				4E7308FF27ABB9A6009C4943 /* WaitingOverlays.swift */,
 				4E73090127ABBAC9009C4943 /* UIView+.swift */,
+				4E7B9AB227ABFA270096A53D /* UIcolor+.swift */,
+				4E7B9AB427AD53CF0096A53D /* Date+.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -344,6 +350,8 @@
 				4E7308FA27AA85CC009C4943 /* APIRequests.swift in Sources */,
 				4E7308F827AA83EC009C4943 /* WeatherModel.swift in Sources */,
 				4E73090227ABBAC9009C4943 /* UIView+.swift in Sources */,
+				4E7B9AB527AD53CF0096A53D /* Date+.swift in Sources */,
+				4E7B9AB327ABFA280096A53D /* UIcolor+.swift in Sources */,
 				4E7308CA27AA6E04009C4943 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
