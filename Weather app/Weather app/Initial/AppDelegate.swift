@@ -7,6 +7,8 @@
 
 import UIKit
 
+import GooglePlaces
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -14,6 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        GMSPlacesClient.provideAPIKey("AIzaSyA3lTGH4ZQsX1MouLeX0Z_6pEJb6Kcy_2Q")
+        
+        let coreDataManager = CoreDataManager(modelName: "CoreWeather")
+        print(coreDataManager.managedObjectContext)
+
+        
         return true
     }
 
