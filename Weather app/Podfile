@@ -7,6 +7,7 @@ target 'Weather app' do
 
   # Pods for Weather app
   pod 'GooglePlaces', '6.0.0'
+  pod 'GoogleMaps'
 
 
   target 'Weather appTests' do

@@ -26,6 +26,15 @@ public class FavoritesModel: NSManagedObject {
         favoritesObject.maxtemp = String(format: "%.0f", cityWeather.main.tempMax - 273.15) + "°C"
         favoritesObject.mintemp = String(format: "%.0f", cityWeather.main.tempMin - 273.15) + "°C"
         favoritesObject.skystatus = cityWeather.weather.first?.weatherDescription
+        favoritesObject.latitude = cityWeather.coord.lat
+        favoritesObject.longitude = cityWeather.coord.lon
+        
+        for favorite in favorites {
+            print(favorite)
+            if favorite.city == cityWeather.name {
+                return
+            }
+        }
         self.favorites.insert(favoritesObject, at: 0)
         
         //Save to persistent store
@@ -43,13 +52,9 @@ public class FavoritesModel: NSManagedObject {
         
         do {
             let favorites = try manager.managedObjectContext.fetch(fetchRequest)
-            
-//            for favorite in favorites {
-//                print(favorite.city)
-//            }
+
             return (favorites, nil)
             
-            print(favorites)
         } catch let error as NSError {
             
             print("Could not fetch \(error), \(error.userInfo)")

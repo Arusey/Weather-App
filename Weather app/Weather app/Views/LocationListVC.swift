@@ -23,6 +23,7 @@ class LocationListVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Favorites"
         tableView.dataSource = self
         tableView.delegate = self
         configureSearch()
@@ -40,7 +41,7 @@ class LocationListVC: UIViewController {
         let (weatherArr, error) = favoritesModel.fetchWeatherForCity()
         
         if let error = error {
-            print(error)
+            showError(error: error)
         } else {
             if let weatherArr = weatherArr, weatherArr.count > 0 {
                 favoritesModel.favorites = weatherArr
@@ -53,12 +54,6 @@ class LocationListVC: UIViewController {
     
     
     func configureSearch() {
-//        let search = UISearchController(searchResultsController: nil)
-//        search.searchResultsUpdater = self
-//        search.obscuresBackgroundDuringPresentation = false
-//        search.searchBar.placeholder = "Enter city to search...;"
-//        navigationItem.searchController = search
-        
         
         resultsViewController = GMSAutocompleteResultsViewController()
         resultsViewController?.delegate = self
@@ -85,15 +80,12 @@ extension LocationListVC: GMSAutocompleteResultsViewControllerDelegate {
     
     func resultsController(_ resultsController: GMSAutocompleteResultsViewController, didAutocompleteWith place: GMSPlace) {
         searchController?.isActive = false
-        print("Place name: \(place.name)")
-        print("Place address: \(place.formattedAddress)")
-        print("Place attributions: \(place.attributions)")
-        
-        
+
         guard let cityName = place.name else { return }
-                
         
-        requests.getWeatherByCity(cityName: cityName) { [self] data, response, error in
+        let name = cityName.replacingOccurrences(of: " ", with: "+")
+        
+        requests.getWeatherByCity(cityName: name) { [self] data, response, error in
             
             do {
                 guard let mydata = data else { return }
@@ -140,7 +132,8 @@ extension LocationListVC: UITableViewDataSource {
         cell.maxTemp.text = favoritesModel.favorites[indexPath.row].maxtemp
         cell.cityTemperature.text = favoritesModel.favorites[indexPath.row].temp
         cell.cityName.text = favoritesModel.favorites[indexPath.row].city
-//        cell.setupCell(cityDetails.weather.first ?? "")
+        
+        cell.skyStatus.text = favoritesModel.favorites[indexPath.row].skystatus
         return cell
     }
     
@@ -155,4 +148,6 @@ extension LocationListVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 200
     }
+    
+
 }

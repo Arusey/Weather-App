@@ -17,6 +17,7 @@ class DashboardWeatherVC: UIViewController {
     @IBOutlet weak var currentTemperature: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var weatherStatus: UILabel!
     @IBOutlet weak var mainTemp: UILabel!
     var requests = APIRequest()
     var currentWeather: CurrentWeather?
@@ -48,14 +49,19 @@ class DashboardWeatherVC: UIViewController {
             self.view.backgroundColor = UIColor.cloudyColor
             self.tableView.backgroundColor = UIColor.cloudyColor
             self.weatherImage.image = UIImage(named: "sea_cloudy")
+            self.weatherStatus.text = "Cloudy"
         case .rain:
             self.view.backgroundColor = UIColor.rainyColor
             self.tableView.backgroundColor = UIColor.rainyColor
             self.weatherImage.image = UIImage(named: "sea_rainy")
+            self.weatherStatus.text = "Rainy"
+
         case .sun:
             self.view.backgroundColor = UIColor.sunnyColor
             self.tableView.backgroundColor = UIColor.sunnyColor
             self.weatherImage.image = UIImage(named: "sea_sunnypng")
+            self.weatherStatus.text = "Sunny"
+
         }
         
     }
@@ -146,10 +152,9 @@ extension DashboardWeatherVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath) as! ForecastWeatherCell
-        guard let temp = forecastWeather?.list?[indexPath.row].main.temp else { return cell }
+
         guard let weatherStat = forecastWeather?.list else { return cell }
-        guard let weatherDescription = forecastWeather?.list?[indexPath.row].weather[0].weatherDescription else { return cell }
-        
+
         guard let weather = forecastWeather?.list?[indexPath.row].weather.first else { return cell }
         
         switch weather.weatherStatus {
@@ -181,7 +186,7 @@ extension DashboardWeatherVC: CLLocationManagerDelegate {
         print("locations = \(locationValue.latitude) \(locationValue.longitude)")
         getCurrentWeather(lat: locationValue.latitude, long: locationValue.longitude)
         getForecasteWeather(lat: locationValue.latitude, long: locationValue.longitude)
-        self.title = currentWeather?.name
+        self.title = "Dashboard"
     }
 }
 
