@@ -6,14 +6,15 @@
 //
 
 import UIKit
-import GooglePlaces
 
 
 class LocationListVC: UIViewController {
     
-    // MARK: - Properties
+    // MARK: - UITableView DataSource
     @IBOutlet weak var tableView: UITableView!
-    var resultsViewController: GMSAutocompleteResultsViewController?
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    // MARK: - Instance Properties
     var searchController: UISearchController?
     let favoritesModel = FavoritesModel()
     var requests = APIRequest()
@@ -26,21 +27,20 @@ class LocationListVC: UIViewController {
         self.title = "Favorites"
         tableView.dataSource = self
         tableView.delegate = self
+        searchBar.delegate = self
 
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        configureSearch()
 
         fetchWeatherForCities()
     }
     
-    // Fetch weather for cities
+    // MARK: - Instance Methods
     func fetchWeatherForCities() {
         let (weatherArr, error) = favoritesModel.fetchWeatherForCity()
-        
         if let error = error {
             showError(error: error)
         } else {
@@ -52,81 +52,46 @@ class LocationListVC: UIViewController {
         }
         
     }
-    
-    // Configure  search cities
-    func configureSearch() {
-        
-        resultsViewController = GMSAutocompleteResultsViewController()
-        resultsViewController?.delegate = self
-        
-        searchController = UISearchController(searchResultsController: resultsViewController)
-        searchController?.searchResultsUpdater = resultsViewController
-        searchController?.searchBar.sizeToFit()
-        navigationItem.titleView = searchController?.searchBar
-        definesPresentationContext = true
 
-        searchController?.hidesNavigationBarDuringPresentation = false
-
-        
-    }
-    
     
 }
-
-extension LocationListVC: GMSAutocompleteResultsViewControllerDelegate {
-    func resultsController(_ resultsController: GMSAutocompleteResultsViewController, didFailAutocompleteWithError error: Error) {
-        // TODO: handle the error.
-           print("Error: ", error.localizedDescription)
-    }
-    
-    
-    // Get city name and make API call
-    func resultsController(_ resultsController: GMSAutocompleteResultsViewController, didAutocompleteWith place: GMSPlace) {
-        searchController?.isActive = false
-
-        guard let cityName = place.name else { return }
+ 
+ //MARK: SearchBarDelegate
+extension LocationListVC: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.view.endEditing(true)
         
-        let name = cityName.replacingOccurrences(of: " ", with: "+")
+        guard searchBar.text != "" else { return }
         
-        requests.getWeatherByCity(cityName: name) { [self] data, response, error in
-            
+        guard let city = searchBar.text else { return }
+        
+        let cityName = city.replacingOccurrences(of: " ", with: "+")
+        
+        requests.getWeatherByCity(cityName: cityName) { [self] data, response, error in
+
             do {
                 guard let mydata = data else { return }
-                
+
                 let jsonData = try JSONDecoder().decode(CityWeather.self, from: mydata)
                 self.cityWeather = jsonData
-
-                
                 guard let cityDetails = cityWeather else { return }
-                
+
                 favoritesModel.addToFavorites(cityWeather: cityDetails)
 
                 DispatchQueue.main.async {
-
                     self.tableView.reloadData()
 
                 }
             } catch {
                 print("Failed to decode data \(String(describing: error))")
             }
-            
+
         }
         
-        
-        
     }
-    
-    // Turn the network activity indicator on and off again.
-      func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-      }
-
-      func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-      }
 }
 
-
+// MARK: - UITableView DataSource
 
 extension LocationListVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -146,12 +111,12 @@ extension LocationListVC: UITableViewDataSource {
     }
     
 }
+// MARK: - UITableView Delegate
 
 extension LocationListVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 200
     }
-    
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         

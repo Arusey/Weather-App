@@ -19,6 +19,14 @@ public class FavoritesModel: NSManagedObject {
     func addToFavorites(cityWeather: CityWeather) {
         let favoritesObject = Favorites(context: manager.managedObjectContext)
         
+        for favorite in favorites {
+            print(favorite)
+            if favorite.city == cityWeather.name {
+                return
+            }
+
+        }
+        
         favoritesObject.temp = String(format: "%.0f", cityWeather.main.temp - 273.15) + "°C"
         favoritesObject.city = cityWeather.name
         favoritesObject.maxtemp = String(format: "%.0f", cityWeather.main.tempMax - 273.15) + "°C"
@@ -27,13 +35,9 @@ public class FavoritesModel: NSManagedObject {
         favoritesObject.latitude = cityWeather.coord.lat
         favoritesObject.longitude = cityWeather.coord.lon
         
-        for favorite in favorites {
-            print(favorite)
-            if favorite.city == cityWeather.name {
-                return
-            }
-        }
+
         self.favorites.insert(favoritesObject, at: 0)
+
         
         //Save to persistent store
         do {

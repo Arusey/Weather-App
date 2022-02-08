@@ -6,15 +6,18 @@
 //
 
 import UIKit
-import GoogleMaps
+import MapKit
 
 class MapsVC: UIViewController {
     
     
+    // MARK: - IBOutlets
+
+    @IBOutlet weak var mapView: MKMapView!
+    
     // MARK: - Properties
     let favoritesModel = FavoritesModel()
 
-    @IBOutlet weak var mapView: GMSMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +30,8 @@ class MapsVC: UIViewController {
         fetchWeatherForCities()
     }
     
-    // fetch city weather
+    // MARK: - Methods
+
     func fetchWeatherForCities() {
         let (weatherArr, error) = favoritesModel.fetchWeatherForCity()
         
@@ -50,9 +54,11 @@ class MapsVC: UIViewController {
             let latitude = cityPins.latitude
             let longitude = cityPins.longitude
             let position = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-            let marker = GMSMarker(position: position)
-            marker.title = cityPins.city
-            marker.map = mapView
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = position
+            annotation.title = cityPins.city
+            self.mapView.addAnnotation(annotation)
+            
 
         }
     }
