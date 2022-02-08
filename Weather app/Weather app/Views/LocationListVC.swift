@@ -11,14 +11,14 @@ import GooglePlaces
 
 class LocationListVC: UIViewController {
     
-    
+    // MARK: - Properties
     @IBOutlet weak var tableView: UITableView!
     var resultsViewController: GMSAutocompleteResultsViewController?
     var searchController: UISearchController?
-    
     let favoritesModel = FavoritesModel()
     var requests = APIRequest()
     var cityWeather: CityWeather?
+    var currentWeather: CurrentWeather?
 
     
     override func viewDidLoad() {
@@ -26,17 +26,18 @@ class LocationListVC: UIViewController {
         self.title = "Favorites"
         tableView.dataSource = self
         tableView.delegate = self
-        configureSearch()
 
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        configureSearch()
+
         fetchWeatherForCities()
     }
     
-    
+    // Fetch weather for cities
     func fetchWeatherForCities() {
         let (weatherArr, error) = favoritesModel.fetchWeatherForCity()
         
@@ -52,7 +53,7 @@ class LocationListVC: UIViewController {
         
     }
     
-    
+    // Configure  search cities
     func configureSearch() {
         
         resultsViewController = GMSAutocompleteResultsViewController()
@@ -78,6 +79,8 @@ extension LocationListVC: GMSAutocompleteResultsViewControllerDelegate {
            print("Error: ", error.localizedDescription)
     }
     
+    
+    // Get city name and make API call
     func resultsController(_ resultsController: GMSAutocompleteResultsViewController, didAutocompleteWith place: GMSPlace) {
         searchController?.isActive = false
 
@@ -92,6 +95,7 @@ extension LocationListVC: GMSAutocompleteResultsViewControllerDelegate {
                 
                 let jsonData = try JSONDecoder().decode(CityWeather.self, from: mydata)
                 self.cityWeather = jsonData
+
                 
                 guard let cityDetails = cityWeather else { return }
                 
@@ -132,7 +136,6 @@ extension LocationListVC: UITableViewDataSource {
         cell.maxTemp.text = favoritesModel.favorites[indexPath.row].maxtemp
         cell.cityTemperature.text = favoritesModel.favorites[indexPath.row].temp
         cell.cityName.text = favoritesModel.favorites[indexPath.row].city
-        
         cell.skyStatus.text = favoritesModel.favorites[indexPath.row].skystatus
         return cell
     }
@@ -148,6 +151,19 @@ extension LocationListVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 200
     }
+    
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            let cityWeather = favoritesModel.favorites[indexPath.row]
+            favoritesModel.favorites.remove(at: indexPath.row)
+            favoritesModel.deleteCityWeather(favorite: cityWeather)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        
+    }
+
     
 
 }

@@ -10,14 +10,12 @@ import CoreData
 
 public class FavoritesModel: NSManagedObject {
     
+    // Variables
     static let shared = FavoritesModel()
-
-    
     let manager = CoreDataManager(modelName: "CoreWeather")
-    
     var favorites: [Favorites] = []
 
-    
+        // Add city to favorites
     func addToFavorites(cityWeather: CityWeather) {
         let favoritesObject = Favorites(context: manager.managedObjectContext)
         
@@ -46,7 +44,7 @@ public class FavoritesModel: NSManagedObject {
         }
     }
     
-    
+    // Fetch favorites: Core data
     func fetchWeatherForCity() -> ([Favorites]?, Error?) {
         let fetchRequest = NSFetchRequest<Favorites>(entityName: "Favorites")
         
@@ -62,31 +60,27 @@ public class FavoritesModel: NSManagedObject {
         }
     }
     
-    
-    func deleteCityWeather() {
+    //
+    func deleteCityWeather(favorite: Favorites) {
         let fetchRequest = NSFetchRequest<Favorites>(entityName: "Favorites")
         
         do {
-            let favorites = try manager.managedObjectContext.fetch(fetchRequest)
-            
-            for favorite in favorites {
-                manager.managedObjectContext.delete(favorite)
-            }
+            manager.managedObjectContext.delete(favorite)
             do {
                 try manager.managedObjectContext.save()
-
+                
             } catch let error as NSError {
                 print("Could not save \(error), \(error.userInfo)")
-
+                
             }
             
         } catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
-
+            
         }
         
-
-
+        
+        
     }
 }
 

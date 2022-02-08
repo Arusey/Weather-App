@@ -10,6 +10,8 @@ import GoogleMaps
 
 class MapsVC: UIViewController {
     
+    
+    // MARK: - Properties
     let favoritesModel = FavoritesModel()
 
     @IBOutlet weak var mapView: GMSMapView!
@@ -25,7 +27,7 @@ class MapsVC: UIViewController {
         fetchWeatherForCities()
     }
     
-    
+    // fetch city weather
     func fetchWeatherForCities() {
         let (weatherArr, error) = favoritesModel.fetchWeatherForCity()
         
@@ -41,7 +43,7 @@ class MapsVC: UIViewController {
         }
         
     }
-    
+    // placemarks for saved cities
     func addPlaceMarks() {
         
         for cityPins in favoritesModel.favorites {
